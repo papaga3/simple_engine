@@ -1,4 +1,4 @@
-interface ImgElement {
+export interface ImgElement {
     image: HTMLImageElement,
     isLoaded: boolean
 }
