@@ -45,7 +45,7 @@ export class Sprites {
         }
     }
 
-    drawImage(ctx: CanvasRenderingContext2D, x: number, y: number) {
+    drawImage(ctx: CanvasRenderingContext2D) {
         // Image is not loaded, nothing to draw
         if(!this.resource.isLoaded) {
             return;
@@ -69,8 +69,8 @@ export class Sprites {
             frameCoordY, //
             frameSizeX,
             frameSizeY,
-            x,
-            y,
+            this.position.x,
+            this.position.y,
             frameSizeX * this.scale,
             frameSizeY * this.scale
         );
