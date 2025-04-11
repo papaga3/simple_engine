@@ -18,7 +18,7 @@ export class Sprites {
     vFrames: number; // how the sprite arranged vertically
     frame: number; // Which frame we want to show
     scale: number; // image scale
-    position: Vector2; // where to draw
+    // position: Vector2; // where to draw
     frameMap: Map<number, Vector2>;
 
     constructor (input: Props) {
@@ -28,7 +28,7 @@ export class Sprites {
         this.vFrames = input.vFrames ?? 1;
         this.frame = input.frame ?? 0;
         this.scale = input.scale ?? 1;
-        this.position = input.position ?? new Vector2(0, 0);
+        // this.position = input.position ?? new Vector2(0, 0);
 
         this.frameMap = new Map<number, Vector2>();
         this.buildFrameMap();
