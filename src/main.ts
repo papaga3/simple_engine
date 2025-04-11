@@ -48,7 +48,7 @@ const main = () => {
 
   const input = new Input();
   // Updating game entities
-  const update = (timestamp: number) => {
+  const update = () => {
     switch(input.direction()) {
       case Direction.UP: {
         console.log("UP");
@@ -93,5 +93,3 @@ const main = () => {
 }
 
 main();
-
-
