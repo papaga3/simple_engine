@@ -12,10 +12,10 @@ class Resources {
 
         // create resource list
         this.resourceList = {
-            sky: "/sprites/sky.png",
-            ground: "/sprites/ground.png",
-            hero: "/sprites/hero-sheet.png",
-            shadow: "/sprites/shadow.png"
+            sky: "sprites/sky.png",
+            ground: "sprites/ground.png",
+            hero: "sprites/hero-sheet.png",
+            shadow: "sprites/shadow.png"
         }
 
         this.imageList = {};

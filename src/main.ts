@@ -21,13 +21,13 @@ const main = () => {
   const skySprite = new Sprites({
     resource: resources.imageList.sky,
     frameSize: new Vector2(320, 180),
-    // position: new Vector2(0, 0)
+    position: new Vector2(0, 0)
   });
 
   const groundSprite = new Sprites({
     resource: resources.imageList.ground,
     frameSize: new Vector2(320, 180),
-    // position: new Vector2(0, 0)
+    position: new Vector2(0, 0)
   });
 
   const hero = new Sprites({ 
@@ -36,7 +36,7 @@ const main = () => {
     hFrames: 3,
     vFrames: 8,
     frame: 2,
-    // position: new Vector2(16 * 5, 16 * 5)
+    position: new Vector2(16 * 5, 16 * 5)
   });
 
   const heroPos = new Vector2(16 * 5, 16 * 5);
