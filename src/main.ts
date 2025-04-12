@@ -101,6 +101,8 @@ const main = () => {
   }
 
   const draw = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     skySprite.drawImage(ctx, 0, 0);
     groundSprite.drawImage(ctx, 0, 0);
 
