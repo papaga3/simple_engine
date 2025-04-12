@@ -1,7 +1,8 @@
 import { GameLoop } from './GameLoop';
-import { gridCells } from './helpers/grid';
+import { gridCells, isSpaceFree } from './helpers/grid';
 import { moveTowards } from './helpers/moveTowards';
 import { Direction, Input } from './Input';
+import { walls } from './levels/level_1';
 import { resources } from './Resources';
 import { Sprites } from './Sprites';
 import './style.css';
@@ -92,9 +93,11 @@ const main = () => {
       }
     }
 
-    // TODO - check space is free
-    heroDestinationPos.x = nextX;
-    heroDestinationPos.y = nextY;
+    // Check if space is free
+    if(isSpaceFree(walls, nextX, nextY)) {
+      heroDestinationPos.x = nextX;
+      heroDestinationPos.y = nextY;
+    }
   }
 
   const draw = () => {
