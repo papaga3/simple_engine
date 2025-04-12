@@ -7,7 +7,7 @@ export class GameLoop {
     rafId: null | number;
     isRunning: boolean;
 
-    constructor(update: (timestep: number) => void, render: () => void) {
+    constructor(update: (delta: number) => void, render: () => void) {
         this.lastTimeFrame = 0;
         this.accumulatedTime = 0;
         this.timeStep = 1000 / 60; // 60 fpgs
@@ -31,9 +31,10 @@ export class GameLoop {
         // Enough time passed, update the game
         if(this.accumulatedTime >= this.timeStep) {
             this.update(this.timeStep);
-            this.accumulatedTime -= this.timeStep;
+            // this.accumulatedTime -= this.timeStep;
+            this.accumulatedTime = 0;
         }
-
+       
         // render
         this.render();
 
