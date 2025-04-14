@@ -63,3 +63,11 @@ export abstract class GameObject {
         });
     }
 }
+
+export class BasicGameObject extends GameObject {
+    constructor(input: Input) {
+        super(input);
+    }
+    step(): void {}
+    drawImage(): void {}
+}

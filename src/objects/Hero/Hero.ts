@@ -1,7 +1,7 @@
 import { CustomAnimations } from "../../CustomAnimations";
 import { events } from "../../Events";
 import { FrameIndexPattern } from "../../FrameIndexPattern";
-import { GameObject } from "../../GameObject";
+import { BasicGameObject, GameObject } from "../../GameObject";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
 import { Direction } from "../../Input";
@@ -18,6 +18,7 @@ export class Hero extends GameObject {
     lastX: number;
     lastY: number;
     itemPickUpTime: number;
+    itemPickUpShell: GameObject | null;
     constructor(x: number, y: number, parent: GameObject) {
         super({ position: new Vector2(x, y), parent: parent });
         this.lastX = x;
@@ -25,6 +26,7 @@ export class Hero extends GameObject {
         this.heroFacing = Direction.DOWN;
         this.destinationPositon = this.position.duplicate();
         this.itemPickUpTime = 0;
+        this.itemPickUpShell = null;
         this.body = new Sprites({ 
             resource: resources.imageList.hero,
             frameSize: new Vector2(32, 32),
@@ -151,10 +153,21 @@ export class Hero extends GameObject {
     workOnItemPickUp = (delta: number) => {
         this.itemPickUpTime -= delta;
         this.body.animations?.play("pickUpDown");
+        if(this.itemPickUpTime <= 0) {
+            this.itemPickUpShell?.destroy();
+            this.itemPickUpShell = null;
+        }
     }
 
     onPickUpItem = (data: { image: ImgElement, position: Vector2 }) => {
         this.destinationPositon = data.position.duplicate();
-        this.itemPickUpTime = 2500;
+        this.itemPickUpShell = new BasicGameObject({parent: this});
+        this.itemPickUpShell.addChild(new Sprites({
+            resource: data.image,
+            position: new Vector2(0, -18),
+            parent: this.itemPickUpShell
+        }));
+        this.addChild(this.itemPickUpShell);
+        this.itemPickUpTime = 1500;
     }
 }

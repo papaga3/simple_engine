@@ -41,8 +41,10 @@ const main = () => {
 
   const hero = new Hero(gridCells(6), gridCells(5), mainScene);
   mainScene.addChild(hero);
+
   const camera = new Camera();
   mainScene.addChild(camera);
+
   const rod = new Rod(gridCells(7), gridCells(6), mainScene);
   mainScene.addChild(rod);
 
