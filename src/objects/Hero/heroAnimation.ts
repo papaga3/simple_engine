@@ -41,3 +41,8 @@ export const STAND_DOWN = makeStandingFrames(1);
 export const STAND_RIGHT = makeStandingFrames(4);
 export const STAND_UP = makeStandingFrames(7);
 export const STAND_LEFT = makeStandingFrames(10);
+
+export const PICK_UP_DOWN: AnimationConfig = {
+    duration: 400,
+    frames: [{ time: 0, frame: 12 }]
+}

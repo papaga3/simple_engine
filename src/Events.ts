@@ -1,7 +1,9 @@
+import { GameObject } from "./GameObject";
+
 interface CallBack {
     id: number;
     eventName: string;
-    caller: Object;
+    caller: GameObject;
     callback: (arg: any) => void;
 }
 
@@ -17,7 +19,7 @@ class Events {
     }
 
     // subscribe something happening
-    on = (eventName: string, caller: Object, callback: (arg: any) => void) => {
+    on = (eventName: string, caller: GameObject, callback: (arg: any) => void) => {
         this.nextID += 1;
         this.callbacks.push({
             id: this.nextID,

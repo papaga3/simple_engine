@@ -1,18 +1,22 @@
+import { events } from "./Events";
 import { Vector2 } from "./Vector2";
 
 interface Input {
     position?: Vector2;
     drawOffSet?: Vector2;
+    parent?: GameObject;
 }
 
 export abstract class GameObject {
     position: Vector2;
     children: GameObject[];
     drawOffSet: Vector2;
+    parent: GameObject | null;
 
     constructor(input: Input) {
         this.drawOffSet = input.drawOffSet ?? new Vector2(0, 0);
         this.position = input.position ?? new Vector2(0, 0);
+        this.parent = input.parent ?? null;
         this.children = [];
     }
 
@@ -37,11 +41,23 @@ export abstract class GameObject {
 
     abstract drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void;
 
+    // Destroy the current instance
+    destroy = () => {
+        // Destroy all children
+        this.children.forEach((child) => { child.destroy() });
+
+        // remove this from its parents
+        if(this.parent !== null) { this.parent.removeChild(this); }
+    }
+
     addChild(gameObject: GameObject) {
         this.children.push(gameObject);
     }
 
     removeChild(gameObject: GameObject) {
+         // Unsubscribe from event
+        events.unsunscribe(gameObject);
+
         this.children = this.children.filter((g) => {
             return gameObject !== g;
         });

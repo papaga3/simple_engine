@@ -4,6 +4,7 @@ import { GameLoop } from './GameLoop';
 import { gridCells } from './helpers/grid';
 import { walls } from './levels/level_1';
 import { Hero } from './objects/Hero/Hero';
+import { Rod } from './objects/Rod/Rod';
 import { Scence } from './objects/Scence';
 import { resources } from './Resources';
 import { Sprites } from './Sprites';
@@ -38,10 +39,12 @@ const main = () => {
   });
   mainScene.addChild(groundSprite);
 
-  const hero = new Hero(gridCells(6), gridCells(5));
+  const hero = new Hero(gridCells(6), gridCells(5), mainScene);
   mainScene.addChild(hero);
   const camera = new Camera();
   mainScene.addChild(camera);
+  const rod = new Rod(gridCells(7), gridCells(6), mainScene);
+  mainScene.addChild(rod);
 
   // Updating game entities
   const update = (delta: number) => {

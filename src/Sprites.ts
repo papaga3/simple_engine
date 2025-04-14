@@ -12,6 +12,7 @@ interface Props {
     scale?: number; // image scale
     position?: Vector2; // where to draw
     animations?: CustomAnimations;
+    parent?: GameObject;
 }
 
 export class Sprites extends GameObject{
@@ -26,7 +27,7 @@ export class Sprites extends GameObject{
     animations: CustomAnimations | null;
 
     constructor (input: Props) {
-        super({ position: input.position })
+        super({ position: input.position, parent: input.parent })
         this.resource = input.resource;
         this.frameSize = input.frameSize ?? new Vector2(16, 16);
         this.hFrames = input.hFrames ?? 1;
@@ -45,7 +46,6 @@ export class Sprites extends GameObject{
         let frameCount = 0;
         for(let v = 0; v < this.vFrames; v++) {
             for(let h = 0; h < this.hFrames; h++) {
-                // console.log(`Frame ${h}-${v}`);
                 this.frameMap.set(frameCount, new Vector2(this.frameSize.x * h, this.frameSize.y * v));
                 frameCount++;
             }
