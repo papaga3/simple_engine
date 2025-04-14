@@ -1,4 +1,5 @@
 import { CustomAnimations } from "./CustomAnimations";
+import { GameObject } from "./GameObject";
 import { ImgElement } from "./Resources";
 import { Vector2 } from "./Vector2";
 
@@ -13,25 +14,26 @@ interface Props {
     animations?: CustomAnimations;
 }
 
-export class Sprites {
+export class Sprites extends GameObject{
     resource: ImgElement; // What image to draw
     frameSize: Vector2; // size of the frame
     hFrames: number; // how the sprite arranged horizontally
     vFrames: number; // how the sprite arranged vertically
     frame: number; // Which frame we want to show
     scale: number; // image scale
-    position: Vector2; // where to draw
+    // position: Vector2; // where to draw
     frameMap: Map<number, Vector2>;
     animations: CustomAnimations | null;
 
     constructor (input: Props) {
+        super({ position: input.position })
         this.resource = input.resource;
         this.frameSize = input.frameSize ?? new Vector2(16, 16);
         this.hFrames = input.hFrames ?? 1;
         this.vFrames = input.vFrames ?? 1;
         this.frame = input.frame ?? 0;
         this.scale = input.scale ?? 1;
-        this.position = input.position ?? new Vector2(0, 0);
+        // this.position = input.position ?? new Vector2(0, 0);
 
         this.frameMap = new Map<number, Vector2>();
         this.buildFrameMap();
