@@ -1,3 +1,5 @@
+import { Camera } from './Camera';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from './constance';
 import { GameLoop } from './GameLoop';
 import { gridCells } from './helpers/grid';
 import { walls } from './levels/level_1';
@@ -25,20 +27,21 @@ const main = () => {
 
   const skySprite = new Sprites({
     resource: resources.imageList.sky,
-    frameSize: new Vector2(320, 180),
+    frameSize: new Vector2(CANVAS_WIDTH, CANVAS_HEIGHT),
     position: new Vector2(0, 0)
   });
-  mainScene.addChild(skySprite);
 
   const groundSprite = new Sprites({
     resource: resources.imageList.ground,
-    frameSize: new Vector2(320, 180),
+    frameSize: new Vector2(CANVAS_WIDTH, CANVAS_HEIGHT),
     position: new Vector2(0, 0)
   });
   mainScene.addChild(groundSprite);
 
   const hero = new Hero(gridCells(6), gridCells(5));
   mainScene.addChild(hero);
+  const camera = new Camera();
+  mainScene.addChild(camera);
 
   // Updating game entities
   const update = (delta: number) => {
@@ -47,7 +50,20 @@ const main = () => {
 
   const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw sky box
+    skySprite.draw(ctx, 0, 0);
+
+    // save current state
+    ctx.save();
+
+    // offset everything
+    ctx.translate(camera.position.x, camera.position.y);
+
     mainScene.draw(ctx, 0, 0);
+
+    // restore state
+    ctx.restore();
   }
 
   const gameLoop = new GameLoop(update, draw);

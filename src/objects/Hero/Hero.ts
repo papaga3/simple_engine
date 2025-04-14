@@ -1,4 +1,5 @@
 import { CustomAnimations } from "../../CustomAnimations";
+import { events } from "../../Events";
 import { FrameIndexPattern } from "../../FrameIndexPattern";
 import { GameObject } from "../../GameObject";
 import { isSpaceFree } from "../../helpers/grid";
@@ -14,8 +15,12 @@ export class Hero extends GameObject {
     heroFacing: Direction;
     destinationPositon: Vector2;
     body: Sprites;
+    lastX: number;
+    lastY: number;
     constructor(x: number, y: number) {
         super({ position: new Vector2(x, y) });
+        this.lastX = x;
+        this.lastY = y;
         this.heroFacing = Direction.DOWN;
         this.destinationPositon = this.position.duplicate();
         this.body = new Sprites({ 
@@ -46,7 +51,8 @@ export class Hero extends GameObject {
 
         this.addChild(shadow);
     }
-    
+
+    //@ts-ignore
     step = (delta: number, root: Scence): void => {
         const distance = moveTowards(this, this.destinationPositon, 1);
         const hasArrived = distance <= 1;
@@ -55,6 +61,7 @@ export class Hero extends GameObject {
         if(hasArrived) {
             this.tryMove(root);
         }
+        this.tryEmitPosition();
     }
 
     drawImage = (): void => {}
@@ -118,5 +125,13 @@ export class Hero extends GameObject {
           this.destinationPositon.x = nextX;
           this.destinationPositon.y = nextY;
         }
+      }
+
+      tryEmitPosition = () => {
+        if(this.lastX === this.position.x && this.lastY === this.position.y) return;
+
+        this.lastX = this.position.x;
+        this.lastY = this.position.y;
+        events.emit("HERO_POSITION", this.position);
       }
 }
