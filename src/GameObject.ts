@@ -24,7 +24,7 @@ export abstract class GameObject {
     // Call everyframe
     abstract step(delta: number): void;
 
-    draw = (ctx: CanvasRenderingContext2D, x: number, y: number) {
+    draw = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
         const drawPosX = x + this.position.x + this.drawOffSet.x;
         const drawPosY = y + this.position.y + this.drawOffSet.y;
 
@@ -36,4 +36,14 @@ export abstract class GameObject {
     }
 
     abstract drawImage(ctx: CanvasRenderingContext2D, x: number, y: number): void;
+
+    addChild(gameObject: GameObject) {
+        this.children.push(gameObject);
+    }
+
+    removeChild(gameObject: GameObject) {
+        this.children = this.children.filter((g) => {
+            return gameObject !== g;
+        });
+    }
 }

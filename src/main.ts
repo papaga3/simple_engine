@@ -6,6 +6,7 @@ import { moveTowards } from './helpers/moveTowards';
 import { Direction, Input } from './Input';
 import { walls } from './levels/level_1';
 import { STAND_DOWN, STAND_LEFT, STAND_RIGHT, STAND_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, WALK_UP } from './objects/Hero/heroAnimation';
+import { Scence } from './objects/Scence';
 import { resources } from './Resources';
 import { Sprites } from './Sprites';
 import './style.css';
@@ -24,17 +25,21 @@ const main = () => {
     return;
   }
 
+  const mainScene = new Scence();
+
   const skySprite = new Sprites({
     resource: resources.imageList.sky,
     frameSize: new Vector2(320, 180),
     position: new Vector2(0, 0)
   });
+  mainScene.addChild(skySprite);
 
   const groundSprite = new Sprites({
     resource: resources.imageList.ground,
     frameSize: new Vector2(320, 180),
     position: new Vector2(0, 0)
   });
+  mainScene.addChild(groundSprite);
 
   const hero = new Sprites({ 
     resource: resources.imageList.hero,
@@ -141,7 +146,7 @@ const main = () => {
 
   const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    /*
     skySprite.drawImage(ctx, 0, 0);
     groundSprite.drawImage(ctx, 0, 0);
 
@@ -151,6 +156,8 @@ const main = () => {
 
     shadow.drawImage(ctx, heroPosX, heroPosY);
     hero.drawImage(ctx, heroPosX, heroPosY);
+    */
+    mainScene.draw(ctx, 0, 0);
   }
 
   const gameLoop = new GameLoop(update, draw);
