@@ -1,7 +1,7 @@
-import { Sprites } from "../Sprites";
+import { GameObject } from "../GameObject";
 import { Vector2 } from "../Vector2";
 
-export const moveTowards = (person: Sprites, dest: Vector2, speed: number) => {
+export const moveTowards = (person: GameObject, dest: Vector2, speed: number) => {
     let distanceX = dest.x - person.position.x;
     let distanceY = dest.y - person.position.y;
 

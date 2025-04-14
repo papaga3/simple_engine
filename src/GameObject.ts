@@ -16,13 +16,13 @@ export abstract class GameObject {
         this.children = [];
     }
 
-    stepEntry = (delta: number, root: any) => {
+    stepEntry = (delta: number, root: GameObject) => {
         this.children.forEach((child) => child.stepEntry(delta, root));
-        this.step(delta);
+        this.step(delta, root);
     }
 
     // Call everyframe
-    abstract step(delta: number): void;
+    abstract step(delta: number, root: GameObject): void;
 
     draw = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
         const drawPosX = x + this.position.x + this.drawOffSet.x;
